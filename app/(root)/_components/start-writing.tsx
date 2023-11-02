@@ -1,6 +1,6 @@
 "use client";
+import { SignInButton } from "@clerk/nextjs";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 export default function StartWriting() {
   return (
@@ -8,7 +8,7 @@ export default function StartWriting() {
       <h1 className="text-4xl sm:text-2xl md:text-6xl font-bold text-white">
         Stačí se zaregistrovat a můžeš začít psát!
       </h1>
-      <Link href="#">
+      <SignInButton>
         <motion.div
           initial={{ opacity: 0, rotate: 0, scale: 0.9 }}
           whileHover={{ scale: 1.1, rotate: 3 }}
@@ -24,7 +24,7 @@ export default function StartWriting() {
             </div>
           </div>
         </motion.div>
-      </Link>
+      </SignInButton>
     </div>
   );
 }
