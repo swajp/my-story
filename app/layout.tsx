@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import { ClerkProvider } from "@clerk/nextjs";
+import ConvexProvider from "@/components/providers/convex-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,13 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={GeistSans.className}>
+    <html lang="en">
+      <body className={GeistSans.className}>
+        <ConvexProvider>
           <Navbar />
           {children}
-        </body>
-      </html>
-    </ClerkProvider>
+        </ConvexProvider>
+      </body>
+    </html>
   );
 }
