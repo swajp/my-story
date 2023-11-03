@@ -10,7 +10,7 @@ export default function UserCard() {
     <div className="p-10 bg-[#1b1b1b] rounded-2xl flex flex-col items-center gap-4">
       <Image
         className="rounded-full"
-        src={user?.imageUrl}
+        src={user?.imageUrl!}
         width={72}
         height={72}
         alt="User image"
