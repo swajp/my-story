@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import ConvexProvider from "@/components/providers/convex-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <ConvexProvider>
           <Navbar />
+          <Toaster position="bottom-center" />
           {children}
         </ConvexProvider>
       </body>
