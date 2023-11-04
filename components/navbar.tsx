@@ -17,21 +17,25 @@ export default function Navbar() {
         </p>
         <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
           <Button>
-            <Link href="/stories">Příběhy</Link>
+            <Link href="/stories">
+              <p className=" font-bold">Příběhy</p>
+            </Link>
           </Button>
           {isLoading && <Spinner size={"lg"} />}
 
           {!isLoading && !isAuthenticated && (
             <SignInButton mode="modal">
               <Button className="text-white" variant={"ghost"} size={"sm"}>
-                Přilásit se
+                <p className=" font-bold">Přihlásit se</p>
               </Button>
             </SignInButton>
           )}
           {!isLoading && isAuthenticated && (
             <>
               <Button className="text-black" variant={"outline"}>
-                <Link href="/dashboard">Můj panel</Link>
+                <Link href="/dashboard">
+                  <p className=" font-bold">Můj účet</p>
+                </Link>
               </Button>
               <UserButton afterSignOutUrl="/" />
             </>

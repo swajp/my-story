@@ -10,10 +10,4 @@ export default defineSchema({
   })
     .index("by_user", ["userId"])
     .index("by_likes", ["likes"]),
-
-  users: defineTable({
-    name: v.string(),
-    email: v.string(),
-    password: v.string(),
-  }),
 });
