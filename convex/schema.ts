@@ -7,6 +7,7 @@ export default defineSchema({
     content: v.string(),
     userId: v.string(),
     likes: v.number(),
+    likedBy: v.array(v.string()),
   })
     .index("by_user", ["userId"])
     .index("by_likes", ["likes"]),

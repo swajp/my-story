@@ -21,7 +21,7 @@ export default function RootLayout({
         <ConvexProvider>
           <Navbar />
           <Toaster position="bottom-center" />
-          {children}
+          <section className=" bg-[#0E0E0E] h-full">{children}</section>
         </ConvexProvider>
       </body>
     </html>
