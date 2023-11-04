@@ -14,11 +14,14 @@ export const create = mutation({
     }
 
     const userId = identity.subject;
+    //here maybe it will work
+    const name = identity.name;
 
     const story = await ctx.db.insert("stories", {
       title: args.title,
       content: args.content,
       userId,
+      name: name || "Anonymous",
       likes: 0,
       likedBy: [],
     });
