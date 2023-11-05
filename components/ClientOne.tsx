@@ -7,6 +7,7 @@ import { HeartIcon } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
+import Spinner from "./spinner";
 
 export const ClientOne = () => {
   const { isAuthenticated } = useConvexAuth();
@@ -23,7 +24,11 @@ export const ClientOne = () => {
   };
 
   if (!stories) {
-    return <>No story.</>;
+    return (
+      <div className="flex items-center justify-center content-center">
+        <Spinner size={"lg"} />
+      </div>
+    );
   }
 
   return (
