@@ -18,7 +18,7 @@ export default function UserPage({ params }: { params: { slug: string } }) {
         <div className="p-10 bg-[#1b1b1b] rounded-2xl flex flex-col items-center gap-4">
           <Image
             className="rounded-full"
-            src={userPosts?.[0].image}
+            src={userPosts?.[0].image || "/images/placeholder.png"}
             width={72}
             height={72}
             alt="User image"
