@@ -41,11 +41,6 @@ export default function UserCard() {
           <p className="text-black text-base font-medium">Upravit profil</p>
         </div>
       </div>
-      {userPosts?.map((post) => (
-        <div>
-          <p>{post.title}</p>
-        </div>
-      ))}
     </div>
   );
 }
