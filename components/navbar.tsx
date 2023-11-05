@@ -16,11 +16,11 @@ export default function Navbar() {
           <Link href="/">my story</Link>
         </p>
         <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-          <Button>
-            <Link href="/stories">
+          <Link href="/stories">
+            <Button>
               <p className=" font-bold">Příběhy</p>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
           {isLoading && <Spinner size={"lg"} />}
 
           {!isLoading && !isAuthenticated && (
@@ -32,11 +32,11 @@ export default function Navbar() {
           )}
           {!isLoading && isAuthenticated && (
             <>
-              <Button className="text-black" variant={"outline"}>
-                <Link href="/dashboard">
+              <Link href="/dashboard">
+                <Button className="text-black" variant={"outline"}>
                   <p className=" font-bold">Můj účet</p>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
               <UserButton afterSignOutUrl="/" />
             </>
           )}

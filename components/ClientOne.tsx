@@ -2,13 +2,13 @@
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useMutation, useQuery } from "convex/react";
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { HeartIcon } from "lucide-react";
-import React, { useEffect, useTransition } from "react";
-import { clerkClient } from "@clerk/nextjs";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export const ClientOne = () => {
+  const { isAuthenticated } = useConvexAuth();
   const stories = useQuery(api.stories.stories);
   const like = useMutation(api.stories.giveLike);
   const onLike = (storyId: Id<"stories">, userId: string) => {
@@ -16,7 +16,7 @@ export const ClientOne = () => {
 
     toast.promise(promise, {
       loading: "Přidávám like...",
-      success: "Story bylo označeno jako oblíbené!",
+      success: "Hotovo!",
       error: "Chyba při přidávání like!",
     });
   };
@@ -27,6 +27,13 @@ export const ClientOne = () => {
 
   return (
     <>
+      {isAuthenticated && (
+        <div className="flex justify-end">
+          <div className="p-2 px-3 bg-white w-fit rounded-lg">
+            <p className=" font-medium ">Napsat příběh</p>
+          </div>
+        </div>
+      )}
       {stories.map((story) => {
         return (
           <div
@@ -35,19 +42,37 @@ export const ClientOne = () => {
           >
             <h2 className="text-white font-semibold text-3xl">{story.title}</h2>
             <p className="text-white font-medium text-lg">{story.content}</p>
-            <div
-              role="button"
-              onClick={() => {
-                onLike(story._id, story.userId);
-              }}
-              className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6"
-            >
-              <HeartIcon className="w-6 h-6 text-red-500" />
-              <span className="text-white font-medium text-lg">
-                {story.likes}
-              </span>
+            {isAuthenticated ? (
+              <div
+                role="button"
+                onClick={() => {
+                  onLike(story._id, story.userId);
+                }}
+                className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6"
+              >
+                <HeartIcon className="w-6 h-6 text-red-500" />
+                <span className="text-white font-medium text-lg">
+                  {story.likes}
+                </span>
+              </div>
+            ) : (
+              <div className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6">
+                <HeartIcon className="w-6 h-6 text-red-500" />
+                <span className="text-white font-medium text-lg">
+                  {story.likes}
+                </span>
+              </div>
+            )}
+            <div className="flex gap-2 items-center pt-4">
+              <Image
+                width={32}
+                className="rounded-full w-fit h-fit"
+                height={32}
+                src={story.image}
+                alt="Profile picture"
+              />
+              <p className="font-semibold text-white">{story.name}</p>
             </div>
-            <p>{story.name}</p>
           </div>
         );
       })}

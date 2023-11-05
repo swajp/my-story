@@ -7,6 +7,7 @@ export default defineSchema({
     content: v.string(),
     userId: v.string(),
     name: v.string(),
+    image: v.string(),
     likes: v.number(),
     likedBy: v.array(v.string()),
   })
