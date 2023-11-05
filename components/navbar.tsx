@@ -6,6 +6,7 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useConvexAuth } from "convex/react";
 import Spinner from "./spinner";
+import Support from "./support";
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -37,9 +38,10 @@ export default function Navbar() {
                   <p className=" font-bold">Můj účet</p>
                 </Button>
               </Link>
-              <UserButton afterSignOutUrl="/" />
+              {/*<UserButton afterSignOutUrl="/" />*/}
             </>
           )}
+          <Support />
         </div>
       </div>
     </div>
