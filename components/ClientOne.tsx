@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 import Spinner from "./spinner";
+import { SignInButton } from "@clerk/nextjs";
 
 export const ClientOne = () => {
   const { isAuthenticated } = useConvexAuth();
@@ -66,12 +67,17 @@ export const ClientOne = () => {
                   </span>
                 </div>
               ) : (
-                <div className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6">
-                  <HeartIcon className="w-6 h-6 text-red-500" />
-                  <span className="text-white font-medium text-lg">
-                    {story.likes}
-                  </span>
-                </div>
+                <SignInButton mode="modal">
+                  <div
+                    role="button"
+                    className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6"
+                  >
+                    <HeartIcon className="w-6 h-6 text-red-500" />
+                    <span className="text-white font-medium text-lg">
+                      {story.likes}
+                    </span>
+                  </div>
+                </SignInButton>
               )}
             </div>
             {story.content.split("\n").map((line, index) => (
