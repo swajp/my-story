@@ -25,6 +25,7 @@ export const create = mutation({
       image: image || "",
       likes: 0,
       likedBy: [],
+      comments: [],
     });
 
     return story;
@@ -98,5 +99,28 @@ export const getUserPostsAndLikes = query({
       .collect();
 
     return posts;
+  },
+});
+
+export const addComment = mutation({
+  args: { id: v.id("stories"), comment: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authorized");
+    }
+
+    const existingStory = await ctx.db.get(args.id);
+
+    if (!existingStory) {
+      throw new Error("Story not found");
+    }
+
+    const comment = await ctx.db.patch(args.id, {
+      comments: [...existingStory.comments, args.comment],
+    });
+
+    return comment;
   },
 });

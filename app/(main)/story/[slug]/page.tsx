@@ -10,6 +10,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { toast } from "sonner";
 import Link from "next/link";
 import Spinner from "@/components/spinner";
+import { Button } from "@/components/ui/button";
 
 export default function UserPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -20,6 +21,22 @@ export default function UserPage({ params }: { params: { slug: string } }) {
   const story = useQuery(api.stories.story, {
     id: slug,
   });
+
+  const [comment, setComment] = React.useState("");
+
+  const createComment = useMutation(api.stories.addComment);
+
+  const onComment = (id: Id<"stories">, comment: string) => {
+    const promise = createComment({ id, comment });
+    toast.promise(promise, {
+      loading: "Přidávání komentáře...",
+      success: "Komentář byl přidán!",
+      error: "Nepodařilo se přidat komentář.",
+    });
+    promise.then(() => {
+      setComment("");
+    });
+  };
 
   const like = useMutation(api.stories.giveLike);
   const onLike = (storyId: Id<"stories">, userId: string) => {
@@ -112,6 +129,30 @@ export default function UserPage({ params }: { params: { slug: string } }) {
               <p className="font-semibold text-white">{story[0].name}</p>
             </Link>
           </div>
+        </div>
+        <div className="relative p-6 bg-[#1b1b1b] rounded-xl">
+          <h1 className=" text-white font-bold text-xl md:text-2xl">
+            Comments
+          </h1>
+          <div>comments</div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onComment(story[0]._id, comment);
+            }}
+          >
+            <textarea
+              className="p-3 w-full resize-none whitespace-pre-line rounded-xl bg-[#2b2b2b] text-white font-medium h-20"
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+            />
+            <div className="flex justify-end">
+              <Button className="bg-[#2b2b2b]" type="submit">
+                Zveřejnit
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
