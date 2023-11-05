@@ -51,9 +51,11 @@ export const ClientOne = () => {
             className="relative p-6 bg-[#1b1b1b] rounded-xl"
           >
             <div className="flex justify-between items-center pb-2">
-              <h2 className="text-white font-semibold text-xl md:text-3xl">
-                {story.title}
-              </h2>
+              <Link href={`/story/${story._id}`}>
+                <h2 className="text-white font-semibold text-xl md:text-3xl">
+                  {story.title}
+                </h2>
+              </Link>
               {isAuthenticated ? (
                 <div
                   role="button"

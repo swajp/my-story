@@ -39,6 +39,19 @@ export const stories = query({
   },
 });
 
+export const story = query({
+  args: { id: v.string() },
+  handler: async (ctx, args) => {
+    const story = await ctx.db
+      .query("stories")
+      .filter((q) => q.eq(q.field("_id"), args.id))
+
+      .collect();
+
+    return story;
+  },
+});
+
 export const giveLike = mutation({
   args: { id: v.id("stories"), userId: v.string() },
   handler: async (ctx, args) => {
