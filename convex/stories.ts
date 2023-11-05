@@ -75,3 +75,15 @@ export const giveLike = mutation({
     }
   },
 });
+
+export const getUserPostsAndLikes = query({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    const posts = await ctx.db
+      .query("stories")
+      .filter((q) => q.eq(q.field("userId"), args.userId))
+      .collect();
+
+    return posts;
+  },
+});

@@ -13,4 +13,10 @@ export default defineSchema({
   })
     .index("by_user", ["userId"])
     .index("by_likes", ["likes"]),
+
+  user: defineTable({
+    name: v.string(),
+    image: v.string(),
+    collectedLikes: v.number(),
+  }),
 });
