@@ -97,7 +97,9 @@ export const ClientOne = () => {
                 src={story.image}
                 alt="Profile picture"
               />
-              <p className="font-semibold text-white">{story.name}</p>
+              <Link href={`/user/${story.userId}`}>
+                <p className="font-semibold text-white">{story.name}</p>
+              </Link>
             </div>
           </div>
         );
