@@ -44,7 +44,7 @@ export const ClientOne = () => {
             className="relative p-6 bg-[#1b1b1b] rounded-xl"
           >
             <div className="flex justify-between items-center pb-2">
-              <h2 className="text-white font-semibold text-3xl">
+              <h2 className="text-white font-semibold text-xl md:text-3xl">
                 {story.title}
               </h2>
               {isAuthenticated ? (
@@ -70,7 +70,10 @@ export const ClientOne = () => {
               )}
             </div>
             {story.content.split("\n").map((line, index) => (
-              <p className="text-white font-medium text-lg" key={index}>
+              <p
+                className="text-white font-medium text-base md:text-lg"
+                key={index}
+              >
                 {line}
               </p>
             ))}
