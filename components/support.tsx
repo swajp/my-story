@@ -21,7 +21,7 @@ export default function Support() {
           </Link>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Support this project</p>
+          <p>Podpořte tento projekt!</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
