@@ -6,6 +6,7 @@ import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { HeartIcon } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
+import Link from "next/link";
 
 export const ClientOne = () => {
   const { isAuthenticated } = useConvexAuth();
@@ -29,9 +30,11 @@ export const ClientOne = () => {
     <>
       {isAuthenticated && (
         <div className="flex justify-end">
-          <div className="p-2 px-3 bg-white w-fit rounded-lg">
-            <p className=" font-medium ">Napsat příběh</p>
-          </div>
+          <Link href="/create-story">
+            <div role="button" className="p-2 px-3 bg-white w-fit rounded-lg">
+              <p className=" font-medium ">Napsat příběh</p>
+            </div>
+          </Link>
         </div>
       )}
       {stories.map((story) => {
@@ -41,7 +44,11 @@ export const ClientOne = () => {
             className="relative p-6 bg-[#1b1b1b] rounded-xl"
           >
             <h2 className="text-white font-semibold text-3xl">{story.title}</h2>
-            <p className="text-white font-medium text-lg">{story.content}</p>
+            {story.content.split("\n").map((line, index) => (
+              <p className="text-white font-medium text-lg" key={index}>
+                {line}
+              </p>
+            ))}
             {isAuthenticated ? (
               <div
                 role="button"

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
+import { connect } from "http2";
 import React from "react";
 import { toast } from "sonner";
 
@@ -36,7 +37,7 @@ export default function PostForm() {
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl text-white font-bold">Obsah příběhu</h1>
           <textarea
-            className="p-3 rounded-xl bg-[#2b2b2b] text-white font-medium h-64"
+            className="p-3 whitespace-pre-line rounded-xl bg-[#2b2b2b] text-white font-medium h-64"
             onChange={(e) => {
               setContent(e.target.value);
             }}
