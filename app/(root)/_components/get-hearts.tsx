@@ -27,7 +27,7 @@ export default function GetHearts() {
         Naber na své popularitě!
       </h1>
       <motion.div
-        onClick={handleStartCounting}
+        onAnimationStart={handleStartCounting}
         initial={{ opacity: 0, rotate: 0, scale: 0.9 }}
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.1, rotate: 3 }}
