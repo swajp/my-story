@@ -43,33 +43,38 @@ export const ClientOne = () => {
             key={story.title}
             className="relative p-6 bg-[#1b1b1b] rounded-xl"
           >
-            <h2 className="text-white font-semibold text-3xl">{story.title}</h2>
+            <div className="flex justify-between items-center pb-2">
+              <h2 className="text-white font-semibold text-3xl">
+                {story.title}
+              </h2>
+              {isAuthenticated ? (
+                <div
+                  role="button"
+                  onClick={() => {
+                    onLike(story._id, story.userId);
+                  }}
+                  className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center "
+                >
+                  <HeartIcon className="w-6 h-6 text-red-500" />
+                  <span className="text-white font-medium text-lg">
+                    {story.likes}
+                  </span>
+                </div>
+              ) : (
+                <div className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6">
+                  <HeartIcon className="w-6 h-6 text-red-500" />
+                  <span className="text-white font-medium text-lg">
+                    {story.likes}
+                  </span>
+                </div>
+              )}
+            </div>
             {story.content.split("\n").map((line, index) => (
               <p className="text-white font-medium text-lg" key={index}>
                 {line}
               </p>
             ))}
-            {isAuthenticated ? (
-              <div
-                role="button"
-                onClick={() => {
-                  onLike(story._id, story.userId);
-                }}
-                className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6"
-              >
-                <HeartIcon className="w-6 h-6 text-red-500" />
-                <span className="text-white font-medium text-lg">
-                  {story.likes}
-                </span>
-              </div>
-            ) : (
-              <div className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center absolute top-6 right-6">
-                <HeartIcon className="w-6 h-6 text-red-500" />
-                <span className="text-white font-medium text-lg">
-                  {story.likes}
-                </span>
-              </div>
-            )}
+
             <div className="flex gap-2 items-center pt-4">
               <Image
                 width={32}
