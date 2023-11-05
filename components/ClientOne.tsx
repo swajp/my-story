@@ -93,7 +93,6 @@ export const ClientOne = () => {
                 key={index}
               >
                 {line}
-                {story.likedBy}
               </p>
             ))}
 
