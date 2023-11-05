@@ -8,10 +8,11 @@ import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 import Spinner from "./spinner";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 export const ClientOne = () => {
   const { isAuthenticated } = useConvexAuth();
+  const { user } = useUser();
   const stories = useQuery(api.stories.stories);
   const like = useMutation(api.stories.giveLike);
   const onLike = (storyId: Id<"stories">, userId: string) => {
@@ -61,7 +62,13 @@ export const ClientOne = () => {
                   }}
                   className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center "
                 >
-                  <HeartIcon className="w-6 h-6 text-red-500" />
+                  <HeartIcon
+                    className={`w-6 h-6 ${
+                      story.likedBy.includes(user?.id || "")
+                        ? "text-red-500 fill-red-500"
+                        : "text-gray-500"
+                    }`}
+                  />
                   <span className="text-white font-medium text-lg">
                     {story.likes}
                   </span>
@@ -86,6 +93,7 @@ export const ClientOne = () => {
                 key={index}
               >
                 {line}
+                {story.likedBy}
               </p>
             ))}
 
