@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import Spinner from "@/components/spinner";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export default function UserPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -22,6 +23,9 @@ export default function UserPage({ params }: { params: { slug: string } }) {
     id: slug,
   });
 
+  //COMMENTS
+
+  //add comment
   const [comment, setComment] = React.useState("");
 
   const createComment = useMutation(api.stories.addComment);
@@ -37,6 +41,15 @@ export default function UserPage({ params }: { params: { slug: string } }) {
       setComment("");
     });
   };
+
+  //get comments
+  const comments = useQuery(api.stories.getComments, {
+    id: slug as Id<"stories">,
+  });
+
+  console.log(comments);
+
+  //LIKES
 
   const like = useMutation(api.stories.giveLike);
   const onLike = (storyId: Id<"stories">, userId: string) => {
@@ -63,6 +76,14 @@ export default function UserPage({ params }: { params: { slug: string } }) {
         <div className="text-white font-medium text-2xl">
           Tento příběh neexistuje.
         </div>
+      </div>
+    );
+  }
+
+  if (!comments) {
+    return (
+      <div className="flex items-center justify-center content-center">
+        <Spinner size={"lg"} />
       </div>
     );
   }
@@ -134,7 +155,28 @@ export default function UserPage({ params }: { params: { slug: string } }) {
           <h1 className=" text-white font-bold text-xl md:text-2xl">
             Comments
           </h1>
-          <div>comments</div>
+          <Separator className="my-2 bg-neutral-700" />
+          <div>
+            {comments.map((comment, index) => (
+              <div className="flex flex-col gap-2" key={index}>
+                <div className="flex gap-2 items-center">
+                  {/*  <Image
+                    width={32}
+                    className="rounded-full w-fit h-fit"
+                    height={32}
+                    src={``}
+                    alt="Profile picture"
+            />*/}
+                  <Link href={`/user/`}>
+                    <p className="font-semibold text-white">{comment.user}</p>
+                  </Link>
+                </div>
+                <p className="text-white font-medium text-base md:text-lg">
+                  {comment.text}
+                </p>
+              </div>
+            ))}
+          </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();

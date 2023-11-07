@@ -10,14 +10,14 @@ export default defineSchema({
     image: v.string(),
     likes: v.number(),
     likedBy: v.array(v.string()),
-    comments: v.array(v.string()),
+    comments: v.array(v.object({ text: v.string(), user: v.string() })),
   })
     .index("by_user", ["userId"])
     .index("by_likes", ["likes"]),
 
-  user: defineTable({
+  users: defineTable({
+    userId: v.string(),
     name: v.string(),
     image: v.string(),
-    collectedLikes: v.number(),
   }),
 });

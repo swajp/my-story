@@ -3,7 +3,7 @@
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
-import { HeartIcon } from "lucide-react";
+import { HeartIcon, Trash, TrashIcon } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +22,17 @@ export const ClientOne = () => {
       loading: "Přidávám like...",
       success: "Hotovo!",
       error: "Chyba při přidávání like!",
+    });
+  };
+
+  const deleteStory = useMutation(api.stories.deleteStory);
+  const onDelete = (storyId: Id<"stories">) => {
+    const promise = deleteStory({ id: storyId });
+
+    toast.promise(promise, {
+      loading: "Mažu příběh...",
+      success: "Hotovo!",
+      error: "Chyba při mazání příběhu!",
     });
   };
 
@@ -57,23 +68,36 @@ export const ClientOne = () => {
                 </h2>
               </Link>
               {isAuthenticated ? (
-                <div
-                  role="button"
-                  onClick={() => {
-                    onLike(story._id, story.userId);
-                  }}
-                  className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center "
-                >
-                  <HeartIcon
-                    className={`w-6 h-6 ${
-                      story.likedBy.includes(user?.id || "")
-                        ? "text-red-500 fill-red-500"
-                        : "text-gray-500"
-                    }`}
-                  />
-                  <span className="text-white font-medium text-lg">
-                    {story.likes}
-                  </span>
+                <div className="flex items-center gap-2">
+                  {story.userId === user?.id && (
+                    <div
+                      role="button"
+                      className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center "
+                      onClick={() => {
+                        onDelete(story._id);
+                      }}
+                    >
+                      <TrashIcon className="w-6 h-6 text-gray-500" />
+                    </div>
+                  )}
+                  <div
+                    role="button"
+                    onClick={() => {
+                      onLike(story._id, story.userId);
+                    }}
+                    className="bg-neutral-900 w-fit rounded-lg p-3 select-none flex gap-x-2 items-center "
+                  >
+                    <HeartIcon
+                      className={`w-6 h-6 ${
+                        story.likedBy.includes(user?.id || "")
+                          ? "text-red-500 fill-red-500"
+                          : "text-gray-500"
+                      }`}
+                    />
+                    <span className="text-white font-medium text-lg">
+                      {story.likes}
+                    </span>
+                  </div>
                 </div>
               ) : (
                 <SignInButton mode="modal">
