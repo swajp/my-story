@@ -1,5 +1,5 @@
-import ClientOne from "@/components/ClientOne";
 import { clerkClient } from "@clerk/nextjs";
+import Stories from "./_components/stories";
 
 export default function StoriesPage() {
   async function getUserId(userId: string) {
@@ -11,7 +11,7 @@ export default function StoriesPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col gap-4 max-w-xl mx-auto">
-        <ClientOne />
+        <Stories />
       </div>
     </div>
   );

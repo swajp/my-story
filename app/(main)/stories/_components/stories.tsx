@@ -7,10 +7,10 @@ import { HeartIcon, Trash, TrashIcon } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
-import Spinner from "./spinner";
+import Spinner from "../../../../components/spinner";
 import { SignInButton, useUser } from "@clerk/nextjs";
 
-export const ClientOne = () => {
+export default function Stories() {
   const { isAuthenticated } = useConvexAuth();
   const { user } = useUser();
   const stories = useQuery(api.stories.stories);
@@ -139,6 +139,4 @@ export const ClientOne = () => {
       })}
     </>
   );
-};
-
-export default ClientOne;
+}
