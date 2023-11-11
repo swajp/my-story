@@ -123,7 +123,7 @@ export const addComment = mutation({
 
     const comment = await ctx.db.patch(args.id, {
       comments: [
-        ...existingStory.comments,
+        ...(existingStory.comments || []),
         { text: args.comment, user: identity.name },
       ],
     });

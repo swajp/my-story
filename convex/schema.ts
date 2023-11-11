@@ -10,7 +10,9 @@ export default defineSchema({
     image: v.string(),
     likes: v.number(),
     likedBy: v.array(v.string()),
-    comments: v.array(v.object({ text: v.string(), user: v.string() })),
+    comments: v.optional(
+      v.array(v.object({ text: v.string(), user: v.string() }))
+    ),
   })
     .index("by_user", ["userId"])
     .index("by_likes", ["likes"]),
